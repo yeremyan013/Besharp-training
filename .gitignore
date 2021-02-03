@@ -1,0 +1,9 @@
+log/
+target/
+out
+*.iml
+.idea/
+*.iws
+git add .
+     git commit -m "initial commit"
+     git push scalingo master
