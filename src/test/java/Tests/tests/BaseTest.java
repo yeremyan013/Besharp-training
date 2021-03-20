@@ -1,4 +1,4 @@
-package Tests;
+package Tests.tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
@@ -13,6 +13,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -20,17 +21,21 @@ public class BaseTest {
     private static final String SCREENSHOT_DIR = "target/screenshots";
     final private Logger LOGGER = LoggerFactory.getLogger(getClass());
     private WebDriver driver;
+
     @BeforeClass
     public void setupBase() {
         getDriver();
     }
-    @AfterClass
-    public void tearDown() {
-        quitDriver();
-    }
+
+    //@AfterClass
+    //public void tearDown() {
+        //quitDriver();
+   //}
+
     private void quitDriver() {
         getDriver().quit();
     }
+
     @AfterMethod
     public void screenshotListener(ITestResult testResult) {
         String fullTestName = testResult.getClass().getName() + "." + testResult.getName();
@@ -47,6 +52,7 @@ public class BaseTest {
             }
         }
     }
+
     public WebDriver getDriver() {
         if (null == driver) {
             WebDriverManager.chromedriver().setup();
