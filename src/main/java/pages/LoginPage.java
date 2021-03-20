@@ -1,5 +1,6 @@
 package pages;
 
+import helpers.Waiters;
 import net.bytebuddy.asm.Advice;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage{
     @FindBy (className = "js-btn-open-modal")
-    private WebElement clickOnLoginButton;
+    private WebElement loginButton;
 
     @FindBy(name = "USER_LOGIN")
     private WebElement fillEmailInput;
@@ -23,7 +24,8 @@ public class LoginPage extends BasePage{
     }
 
     public void setClickOnLoginButton() {
-        clickOnLoginButton.click();
+        loginButton.click();
+        Waiters.waitForVisibilityOfElement(getDriver(), fillEmailInput);
     }
 
     public void setFillEmailInput(String emailInput) {
@@ -31,11 +33,19 @@ public class LoginPage extends BasePage{
     }
 
     public void setFillPasswordInput(String passwordInput) {
+        Waiters.waitForVisibilityOfElement(getDriver(), fillPasswordInput);
         fillPasswordInput.sendKeys(passwordInput);
     }
 
-    public void setClickOnSubmitButton() {
+    public HomePage setClickOnSubmitButton() {
         clickOnSubmitButton.click();
+        return new HomePage(getDriver(), getServerUrl(), getPagePath());
+    }
+
+    @Override
+    public void load(){
+        super.load();
+        Waiters.waitForElementToBeClickable(getDriver(), loginButton);
     }
 
 }

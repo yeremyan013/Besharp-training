@@ -1,5 +1,6 @@
-package Tests;
+package Tests.tests;
 
+import Tests.tests.BaseTest;
 import org.testng.annotations.Test;
 import pages.InputFormPage;
 
